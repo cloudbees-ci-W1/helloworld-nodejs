@@ -2,11 +2,7 @@ pipeline {
   agent none
   stages {
     stage('Test') {
-      agent {
-        kubernetes {
-          yamlFile 'nodejs-pod.yaml'
-        }
-      }
+      agent { label 'nodejs-app' }
       steps {
         container('nodejs') {
           echo 'Hello World!'   
@@ -14,5 +10,15 @@ pipeline {
         }
       }
     }
+    stage('Build and Push Image') {
+      when {
+        beforeAgent true
+        branch 'main'
+      }
+      steps {
+        echo "TODO - build and push image"
+      }
+    }
   }
 }
+
