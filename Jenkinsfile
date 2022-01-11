@@ -1,5 +1,8 @@
 pipeline {
   agent none
+  environment {
+    FAVORITE_COLOR = 'RED'
+  }
   stages {
     stage('Test') {
       when {
@@ -14,7 +17,7 @@ pipeline {
         }
       }
     }
-    stage('Main Branch Stages') {
+   stage('Main Branch Stages') {
       when {
         beforeAgent true
         branch 'main'
@@ -22,12 +25,16 @@ pipeline {
       stages {
         stage('Build and Push Image') {
           steps {
+            echo "FAVORITE_COLOR is $FAVORITE_COLOR"  
             echo "TODO - build and push image"
           }
         }
         stage('Deploy') {
+          environment {
+            FAVORITE_COLOR = 'BLUE'
+          }
           steps {
-            echo "TODO - deploy"
+            echo "TODO - deploy to $FAVORITE_COLOR"
           }
         }
       }
