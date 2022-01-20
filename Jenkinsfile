@@ -8,18 +8,30 @@ pipeline {
   }
   stages {
     stage('Test') {
-      when {
-        beforeAgent true
-        not { branch 'main' }
+      //when {
+      //  beforeAgent true
+      //  not { branch 'main' }
+      //}
+      parallel {
+        stage ('Run Test load 1') {
+          agent { label 'nodejs-app' }
+            steps {
+             container('nodejs') {
+              echo 'Hello World!'   
+              sh 'node --version'
+             }
+            }
+           }
+        stage ('Run Test load 2') {
+          agent { label 'nodejs-app' }
+            steps {
+             container('nodejs') {
+              echo 'Hello World!'   
+              sh 'node --version'
+             }
+            }
+          }
       }
-      agent { label 'nodejs-app' }
-      steps {
-        container('nodejs') {
-          echo 'Hello World!'   
-          sh 'node --version'
-        }
-      }
-    }
    stage('Main Branch Stages') {
       when {
         beforeAgent true
