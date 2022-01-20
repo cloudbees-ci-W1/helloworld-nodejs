@@ -31,6 +31,7 @@ pipeline {
              }
             }
           }
+        }
       }
    stage('Main Branch Stages') {
       when {
