@@ -23,11 +23,11 @@ pipeline {
             }
            }
         stage ('Run Test load 2') {
-          agent { label 'nodejs-app' }
+          agent { label 'python-app' }
             steps {
-             container('nodejs') {
-              echo 'Hello World!'   
-              sh 'node --version'
+             container('python3') {
+              echo 'Hello Python World!'   
+              sh 'python3 --version'
              }
             }
           }
