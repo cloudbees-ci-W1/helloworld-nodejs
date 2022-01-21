@@ -15,26 +15,27 @@ pipeline {
       //  beforeAgent true
       //  not { branch 'main' }
       //}
-      echo "Branch Choice: ${params.BRANCH}"
-      parallel {
-        stage ('Run Test load 1') {
-          agent { label 'nodejs-app' }
+       echo "Branch Choice: ${params.BRANCH}"
+       parallel {
+         stage ('Run Test load 1') {
+           agent { label 'nodejs-app' }
             steps {
-             container('nodejs') {
+              container('nodejs') {
               echo 'Hello World!'   
               sh 'node --version'
              }
             }
-        stage ('Run Test load 2') {
-          agent { label 'python-app' }
-            steps {
-             container('python3') {
+          }
+         stage ('Run Test load 2') {
+           agent { label 'python-app' }
+             steps {
+              container('python3') {
               echo 'Hello Python World!'   
               sh 'python3 --version'
              }
             }
           }
-        }
+       }
       }
    stage('Main Branch Stages') {
       when {
