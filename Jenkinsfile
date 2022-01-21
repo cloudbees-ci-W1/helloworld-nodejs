@@ -1,5 +1,8 @@
 pipeline {
   agent none
+  parameters {
+     choice(name: 'BRANCH', choices: ['Main', 'Development'], description: 'Choose branch')
+  }
    triggers {
     eventTrigger simpleMatch('hello-api-deploy-event')
   }
@@ -21,6 +24,10 @@ pipeline {
               sh 'node --version'
              }
             }
+           post {
+                  failure {
+                            echo "SEND EMAIL"
+                        }
            }
         stage ('Run Test load 2') {
           agent { label 'python-app' }
