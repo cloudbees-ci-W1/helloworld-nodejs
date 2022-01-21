@@ -15,6 +15,7 @@ pipeline {
       //  beforeAgent true
       //  not { branch 'main' }
       //}
+      echo "Branch Choice: ${params.BRANCH}"
       parallel {
         stage ('Run Test load 1') {
           agent { label 'nodejs-app' }
@@ -24,11 +25,6 @@ pipeline {
               sh 'node --version'
              }
             }
-           post {
-                  failure {
-                            echo "SEND EMAIL"
-                        }
-           }
         stage ('Run Test load 2') {
           agent { label 'python-app' }
             steps {
