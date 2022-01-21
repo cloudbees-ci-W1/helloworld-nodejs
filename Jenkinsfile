@@ -15,7 +15,7 @@ pipeline {
       //  beforeAgent true
       //  not { branch 'main' }
       //}
-       echo "Branch Choice: ${params.BRANCH}"
+       
        parallel {
          stage ('Run Test load 1') {
            agent { label 'nodejs-app' }
@@ -47,6 +47,7 @@ pipeline {
           steps {
             echo "FAVORITE_COLOR is $FAVORITE_COLOR"  
             echo "TODO - build and push image"
+            echo "Branch Choice: ${params.BRANCH}"
           }
         }
         stage('Deploy') {
